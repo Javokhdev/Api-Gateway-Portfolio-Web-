@@ -86,9 +86,10 @@ func (h *Handler) DeleteSkill(ctx *gin.Context) {
 // @Router 			/skill/getall [get]
 func (h *Handler) GetAllSkill(ctx *gin.Context) {
 	skill := &pb.Skill{}
-	// restoran.Address = ctx.Param("restoran")
-	skill.Name = ctx.Param("name")
-
+	skill.Id = ctx.Query("id")
+	skill.UserId = ctx.Query("user_id")
+	skill.Name = ctx.Query("name")
+	skill.Level = ctx.Query("level")
 	res, err := h.Skill.GetAllSkill(ctx, skill)
 	if err != nil {
 		panic(err)

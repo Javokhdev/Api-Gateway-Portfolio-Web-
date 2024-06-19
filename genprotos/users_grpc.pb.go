@@ -40,7 +40,7 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 
 func (c *userServiceClient) CreateUser(ctx context.Context, in *Users, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.UserService/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func (c *userServiceClient) CreateUser(ctx context.Context, in *Users, opts ...g
 
 func (c *userServiceClient) DeleteUser(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.UserService/DeleteUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/DeleteUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *userServiceClient) DeleteUser(ctx context.Context, in *ById, opts ...gr
 
 func (c *userServiceClient) UpdateUser(ctx context.Context, in *Users, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.UserService/UpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *userServiceClient) UpdateUser(ctx context.Context, in *Users, opts ...g
 
 func (c *userServiceClient) GetByIdUser(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Users, error) {
 	out := new(Users)
-	err := c.cc.Invoke(ctx, "/protos.UserService/GetByIdUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/GetByIdUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func (c *userServiceClient) GetByIdUser(ctx context.Context, in *ById, opts ...g
 
 func (c *userServiceClient) GetAllUser(ctx context.Context, in *Users, opts ...grpc.CallOption) (*GetAllUsers, error) {
 	out := new(GetAllUsers)
-	err := c.cc.Invoke(ctx, "/protos.UserService/GetAllUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/GetAllUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,7 +85,7 @@ func (c *userServiceClient) GetAllUser(ctx context.Context, in *Users, opts ...g
 
 func (c *userServiceClient) LoginUser(ctx context.Context, in *Users, opts ...grpc.CallOption) (*Users, error) {
 	out := new(Users)
-	err := c.cc.Invoke(ctx, "/protos.UserService/LoginUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.UserService/LoginUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func _UserService_CreateUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/CreateUser",
+		FullMethod: "/portfolio_submodule.UserService/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).CreateUser(ctx, req.(*Users))
@@ -168,7 +168,7 @@ func _UserService_DeleteUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/DeleteUser",
+		FullMethod: "/portfolio_submodule.UserService/DeleteUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).DeleteUser(ctx, req.(*ById))
@@ -186,7 +186,7 @@ func _UserService_UpdateUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/UpdateUser",
+		FullMethod: "/portfolio_submodule.UserService/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).UpdateUser(ctx, req.(*Users))
@@ -204,7 +204,7 @@ func _UserService_GetByIdUser_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/GetByIdUser",
+		FullMethod: "/portfolio_submodule.UserService/GetByIdUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).GetByIdUser(ctx, req.(*ById))
@@ -222,7 +222,7 @@ func _UserService_GetAllUser_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/GetAllUser",
+		FullMethod: "/portfolio_submodule.UserService/GetAllUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).GetAllUser(ctx, req.(*Users))
@@ -240,7 +240,7 @@ func _UserService_LoginUser_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.UserService/LoginUser",
+		FullMethod: "/portfolio_submodule.UserService/LoginUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).LoginUser(ctx, req.(*Users))
@@ -252,7 +252,7 @@ func _UserService_LoginUser_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protos.UserService",
+	ServiceName: "portfolio_submodule.UserService",
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

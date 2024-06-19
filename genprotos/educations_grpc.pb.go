@@ -39,7 +39,7 @@ func NewEducationServiceClient(cc grpc.ClientConnInterface) EducationServiceClie
 
 func (c *educationServiceClient) CreateEducation(ctx context.Context, in *Education, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.EducationService/CreateEducation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.EducationService/CreateEducation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *educationServiceClient) CreateEducation(ctx context.Context, in *Educat
 
 func (c *educationServiceClient) DeleteEducation(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.EducationService/DeleteEducation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.EducationService/DeleteEducation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *educationServiceClient) DeleteEducation(ctx context.Context, in *ById, 
 
 func (c *educationServiceClient) UpdateEducation(ctx context.Context, in *Education, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.EducationService/UpdateEducation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.EducationService/UpdateEducation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *educationServiceClient) UpdateEducation(ctx context.Context, in *Educat
 
 func (c *educationServiceClient) GetByIdEducation(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Education, error) {
 	out := new(Education)
-	err := c.cc.Invoke(ctx, "/protos.EducationService/GetByIdEducation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.EducationService/GetByIdEducation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *educationServiceClient) GetByIdEducation(ctx context.Context, in *ById,
 
 func (c *educationServiceClient) GetAllEducation(ctx context.Context, in *Education, opts ...grpc.CallOption) (*GetAllEducations, error) {
 	out := new(GetAllEducations)
-	err := c.cc.Invoke(ctx, "/protos.EducationService/GetAllEducation", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.EducationService/GetAllEducation", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _EducationService_CreateEducation_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.EducationService/CreateEducation",
+		FullMethod: "/portfolio_submodule.EducationService/CreateEducation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EducationServiceServer).CreateEducation(ctx, req.(*Education))
@@ -154,7 +154,7 @@ func _EducationService_DeleteEducation_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.EducationService/DeleteEducation",
+		FullMethod: "/portfolio_submodule.EducationService/DeleteEducation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EducationServiceServer).DeleteEducation(ctx, req.(*ById))
@@ -172,7 +172,7 @@ func _EducationService_UpdateEducation_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.EducationService/UpdateEducation",
+		FullMethod: "/portfolio_submodule.EducationService/UpdateEducation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EducationServiceServer).UpdateEducation(ctx, req.(*Education))
@@ -190,7 +190,7 @@ func _EducationService_GetByIdEducation_Handler(srv interface{}, ctx context.Con
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.EducationService/GetByIdEducation",
+		FullMethod: "/portfolio_submodule.EducationService/GetByIdEducation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EducationServiceServer).GetByIdEducation(ctx, req.(*ById))
@@ -208,7 +208,7 @@ func _EducationService_GetAllEducation_Handler(srv interface{}, ctx context.Cont
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.EducationService/GetAllEducation",
+		FullMethod: "/portfolio_submodule.EducationService/GetAllEducation",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EducationServiceServer).GetAllEducation(ctx, req.(*Education))
@@ -220,7 +220,7 @@ func _EducationService_GetAllEducation_Handler(srv interface{}, ctx context.Cont
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var EducationService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protos.EducationService",
+	ServiceName: "portfolio_submodule.EducationService",
 	HandlerType: (*EducationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

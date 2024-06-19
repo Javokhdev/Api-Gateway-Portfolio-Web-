@@ -39,7 +39,7 @@ func NewSkillServiceClient(cc grpc.ClientConnInterface) SkillServiceClient {
 
 func (c *skillServiceClient) CreateSkill(ctx context.Context, in *Skill, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.SkillService/CreateSkill", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.SkillService/CreateSkill", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *skillServiceClient) CreateSkill(ctx context.Context, in *Skill, opts ..
 
 func (c *skillServiceClient) DeleteSkill(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.SkillService/DeleteSkill", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.SkillService/DeleteSkill", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *skillServiceClient) DeleteSkill(ctx context.Context, in *ById, opts ...
 
 func (c *skillServiceClient) UpdateSkill(ctx context.Context, in *Skill, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.SkillService/UpdateSkill", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.SkillService/UpdateSkill", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *skillServiceClient) UpdateSkill(ctx context.Context, in *Skill, opts ..
 
 func (c *skillServiceClient) GetByIdSkill(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Skill, error) {
 	out := new(Skill)
-	err := c.cc.Invoke(ctx, "/protos.SkillService/GetByIdSkill", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.SkillService/GetByIdSkill", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *skillServiceClient) GetByIdSkill(ctx context.Context, in *ById, opts ..
 
 func (c *skillServiceClient) GetAllSkill(ctx context.Context, in *Skill, opts ...grpc.CallOption) (*GetAllSkills, error) {
 	out := new(GetAllSkills)
-	err := c.cc.Invoke(ctx, "/protos.SkillService/GetAllSkill", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.SkillService/GetAllSkill", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _SkillService_CreateSkill_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.SkillService/CreateSkill",
+		FullMethod: "/portfolio_submodule.SkillService/CreateSkill",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillServiceServer).CreateSkill(ctx, req.(*Skill))
@@ -154,7 +154,7 @@ func _SkillService_DeleteSkill_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.SkillService/DeleteSkill",
+		FullMethod: "/portfolio_submodule.SkillService/DeleteSkill",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillServiceServer).DeleteSkill(ctx, req.(*ById))
@@ -172,7 +172,7 @@ func _SkillService_UpdateSkill_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.SkillService/UpdateSkill",
+		FullMethod: "/portfolio_submodule.SkillService/UpdateSkill",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillServiceServer).UpdateSkill(ctx, req.(*Skill))
@@ -190,7 +190,7 @@ func _SkillService_GetByIdSkill_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.SkillService/GetByIdSkill",
+		FullMethod: "/portfolio_submodule.SkillService/GetByIdSkill",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillServiceServer).GetByIdSkill(ctx, req.(*ById))
@@ -208,7 +208,7 @@ func _SkillService_GetAllSkill_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.SkillService/GetAllSkill",
+		FullMethod: "/portfolio_submodule.SkillService/GetAllSkill",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SkillServiceServer).GetAllSkill(ctx, req.(*Skill))
@@ -220,7 +220,7 @@ func _SkillService_GetAllSkill_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SkillService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protos.SkillService",
+	ServiceName: "portfolio_submodule.SkillService",
 	HandlerType: (*SkillServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

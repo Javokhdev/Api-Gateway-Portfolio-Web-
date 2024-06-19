@@ -89,8 +89,11 @@ func (h *Handler) DeleteProject(ctx *gin.Context) {
 // @Router 			/project/getall [get]
 func (h *Handler) GetAllProject(ctx *gin.Context) {
 	Project := &pb.Project{}
-	// restoran.Address = ctx.Param("restoran")
-	// Project.Name = ctx.Param("name")
+	Project.Id = ctx.Query("id")
+	Project.UserId = ctx.Query("user_id")
+	Project.Title = ctx.Query("title")
+	Project.Description = ctx.Query("description")
+	Project.Url = ctx.Query("url")
 
 	res, err := h.Project.GetAllProject(ctx, Project)
 	if err != nil {

@@ -59,6 +59,8 @@ func NewGin(h *handler.Handler) *gin.Engine {
 	v.GET("/byuser/:user_id", h.GetByUserIdExperience)
 
 
+	r.GET("portfolio/:user_id", h.GetUserPortfolio)
+
 
 	return r
 }

@@ -39,7 +39,7 @@ func NewExperienceServiceClient(cc grpc.ClientConnInterface) ExperienceServiceCl
 
 func (c *experienceServiceClient) CreateExperience(ctx context.Context, in *Experience, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ExperienceService/CreateExperience", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ExperienceService/CreateExperience", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *experienceServiceClient) CreateExperience(ctx context.Context, in *Expe
 
 func (c *experienceServiceClient) DeleteExperience(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ExperienceService/DeleteExperience", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ExperienceService/DeleteExperience", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *experienceServiceClient) DeleteExperience(ctx context.Context, in *ById
 
 func (c *experienceServiceClient) UpdateExperience(ctx context.Context, in *Experience, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ExperienceService/UpdateExperience", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ExperienceService/UpdateExperience", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *experienceServiceClient) UpdateExperience(ctx context.Context, in *Expe
 
 func (c *experienceServiceClient) GetByIdExperience(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Experience, error) {
 	out := new(Experience)
-	err := c.cc.Invoke(ctx, "/protos.ExperienceService/GetByIdExperience", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ExperienceService/GetByIdExperience", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *experienceServiceClient) GetByIdExperience(ctx context.Context, in *ByI
 
 func (c *experienceServiceClient) GetAllExperience(ctx context.Context, in *Experience, opts ...grpc.CallOption) (*GetAllExperiences, error) {
 	out := new(GetAllExperiences)
-	err := c.cc.Invoke(ctx, "/protos.ExperienceService/GetAllExperience", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ExperienceService/GetAllExperience", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _ExperienceService_CreateExperience_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ExperienceService/CreateExperience",
+		FullMethod: "/portfolio_submodule.ExperienceService/CreateExperience",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExperienceServiceServer).CreateExperience(ctx, req.(*Experience))
@@ -154,7 +154,7 @@ func _ExperienceService_DeleteExperience_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ExperienceService/DeleteExperience",
+		FullMethod: "/portfolio_submodule.ExperienceService/DeleteExperience",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExperienceServiceServer).DeleteExperience(ctx, req.(*ById))
@@ -172,7 +172,7 @@ func _ExperienceService_UpdateExperience_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ExperienceService/UpdateExperience",
+		FullMethod: "/portfolio_submodule.ExperienceService/UpdateExperience",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExperienceServiceServer).UpdateExperience(ctx, req.(*Experience))
@@ -190,7 +190,7 @@ func _ExperienceService_GetByIdExperience_Handler(srv interface{}, ctx context.C
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ExperienceService/GetByIdExperience",
+		FullMethod: "/portfolio_submodule.ExperienceService/GetByIdExperience",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExperienceServiceServer).GetByIdExperience(ctx, req.(*ById))
@@ -208,7 +208,7 @@ func _ExperienceService_GetAllExperience_Handler(srv interface{}, ctx context.Co
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ExperienceService/GetAllExperience",
+		FullMethod: "/portfolio_submodule.ExperienceService/GetAllExperience",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ExperienceServiceServer).GetAllExperience(ctx, req.(*Experience))
@@ -220,7 +220,7 @@ func _ExperienceService_GetAllExperience_Handler(srv interface{}, ctx context.Co
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ExperienceService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protos.ExperienceService",
+	ServiceName: "portfolio_submodule.ExperienceService",
 	HandlerType: (*ExperienceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

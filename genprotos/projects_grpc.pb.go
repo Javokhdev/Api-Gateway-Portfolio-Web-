@@ -39,7 +39,7 @@ func NewProjectServiceClient(cc grpc.ClientConnInterface) ProjectServiceClient {
 
 func (c *projectServiceClient) CreateProject(ctx context.Context, in *Project, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ProjectService/CreateProject", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ProjectService/CreateProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *projectServiceClient) CreateProject(ctx context.Context, in *Project, o
 
 func (c *projectServiceClient) DeleteProject(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ProjectService/DeleteProject", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ProjectService/DeleteProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *projectServiceClient) DeleteProject(ctx context.Context, in *ById, opts
 
 func (c *projectServiceClient) UpdateProject(ctx context.Context, in *Project, opts ...grpc.CallOption) (*Void, error) {
 	out := new(Void)
-	err := c.cc.Invoke(ctx, "/protos.ProjectService/UpdateProject", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ProjectService/UpdateProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *projectServiceClient) UpdateProject(ctx context.Context, in *Project, o
 
 func (c *projectServiceClient) GetByIdProject(ctx context.Context, in *ById, opts ...grpc.CallOption) (*Project, error) {
 	out := new(Project)
-	err := c.cc.Invoke(ctx, "/protos.ProjectService/GetByIdProject", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ProjectService/GetByIdProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *projectServiceClient) GetByIdProject(ctx context.Context, in *ById, opt
 
 func (c *projectServiceClient) GetAllProject(ctx context.Context, in *Project, opts ...grpc.CallOption) (*GetAllProjects, error) {
 	out := new(GetAllProjects)
-	err := c.cc.Invoke(ctx, "/protos.ProjectService/GetAllProject", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/portfolio_submodule.ProjectService/GetAllProject", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _ProjectService_CreateProject_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ProjectService/CreateProject",
+		FullMethod: "/portfolio_submodule.ProjectService/CreateProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).CreateProject(ctx, req.(*Project))
@@ -154,7 +154,7 @@ func _ProjectService_DeleteProject_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ProjectService/DeleteProject",
+		FullMethod: "/portfolio_submodule.ProjectService/DeleteProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).DeleteProject(ctx, req.(*ById))
@@ -172,7 +172,7 @@ func _ProjectService_UpdateProject_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ProjectService/UpdateProject",
+		FullMethod: "/portfolio_submodule.ProjectService/UpdateProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).UpdateProject(ctx, req.(*Project))
@@ -190,7 +190,7 @@ func _ProjectService_GetByIdProject_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ProjectService/GetByIdProject",
+		FullMethod: "/portfolio_submodule.ProjectService/GetByIdProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).GetByIdProject(ctx, req.(*ById))
@@ -208,7 +208,7 @@ func _ProjectService_GetAllProject_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/protos.ProjectService/GetAllProject",
+		FullMethod: "/portfolio_submodule.ProjectService/GetAllProject",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProjectServiceServer).GetAllProject(ctx, req.(*Project))
@@ -220,7 +220,7 @@ func _ProjectService_GetAllProject_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ProjectService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "protos.ProjectService",
+	ServiceName: "portfolio_submodule.ProjectService",
 	HandlerType: (*ProjectServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

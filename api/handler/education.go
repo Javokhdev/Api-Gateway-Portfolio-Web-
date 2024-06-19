@@ -107,8 +107,13 @@ func (h *Handler) DeleteEducation(ctx *gin.Context) {
 // @Router 			/education/getall [get]
 func (h *Handler) GetAllEducation(ctx *gin.Context) {
 	Education := &pb.Education{}
-	// restoran.Address = ctx.Param("restoran")
-	// Education.Name = ctx.Param("name")
+	Education.Id = ctx.Query("id")
+	Education.UserId = ctx.Query("user_id")
+	Education.Institution = ctx.Query("institution")
+	Education.Degree = ctx.Query("degree")
+	Education.FieldOfStudy = ctx.Query("field_of_study")
+	Education.StartDate = ctx.Query("start_date")
+	Education.EndDate = ctx.Query("end_date")
 
 	res, err := h.Education.GetAllEducation(ctx, Education)
 	if err != nil {
@@ -135,7 +140,6 @@ func (h *Handler) GetByIdEducation(ctx *gin.Context) {
 	}
 	ctx.JSON(200, res)
 }
-
 
 // GetByUserIdEducation handles retrieving Educations by User ID
 // @Summary 		Get Education by User ID

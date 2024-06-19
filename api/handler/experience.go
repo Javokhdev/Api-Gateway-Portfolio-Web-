@@ -104,8 +104,13 @@ func (h *Handler) DeleteExperience(ctx *gin.Context) {
 // @Router 			/experience/getall [get]
 func (h *Handler) GetAllExperience(ctx *gin.Context) {
 	Experience := &pb.Experience{}
-	// restoran.Address = ctx.Param("restoran")
-	// Experience.Name = ctx.Param("name")
+	Experience.Id = ctx.Query("id")
+	Experience.UserId = ctx.Query("user_id")
+	Experience.Title = ctx.Query("title")
+	Experience.Company = ctx.Query("company")
+	Experience.Description = ctx.Query("description")
+	Experience.StartDate = ctx.Query("start_date")
+	Experience.EndDate = ctx.Query("end_date")
 
 	res, err := h.Experience.GetAllExperience(ctx, Experience)
 	if err != nil {
