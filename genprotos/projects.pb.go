@@ -26,7 +26,7 @@ type Project struct {
 	unknownFields protoimpl.UnknownFields
 
 	Id          string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId      *Users `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UserId      string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Title       string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
 	Description string `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
 	Url         string `protobuf:"bytes,5,opt,name=url,proto3" json:"url,omitempty"`
@@ -71,11 +71,11 @@ func (x *Project) GetId() string {
 	return ""
 }
 
-func (x *Project) GetUserId() *Users {
+func (x *Project) GetUserId() string {
 	if x != nil {
 		return x.UserId
 	}
-	return nil
+	return ""
 }
 
 func (x *Project) GetTitle() string {
@@ -151,11 +151,10 @@ var File_projects_proto protoreflect.FileDescriptor
 var file_projects_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x70, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x12, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x1a, 0x0b, 0x75, 0x73, 0x65, 0x72, 0x73, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x8b, 0x01, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63,
-	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69,
-	0x64, 0x12, 0x26, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2e, 0x55, 0x73, 0x65, 0x72,
-	0x73, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x7c, 0x0a, 0x07, 0x50, 0x72, 0x6f, 0x6a, 0x65, 0x63, 0x74,
+	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64,
+	0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69, 0x74,
 	0x6c, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65, 0x12,
 	0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f,
@@ -201,28 +200,26 @@ var file_projects_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_projects_proto_goTypes = []interface{}{
 	(*Project)(nil),        // 0: protos.Project
 	(*GetAllProjects)(nil), // 1: protos.GetAllProjects
-	(*Users)(nil),          // 2: protos.Users
-	(*ById)(nil),           // 3: protos.ById
-	(*Void)(nil),           // 4: protos.Void
+	(*ById)(nil),           // 2: protos.ById
+	(*Void)(nil),           // 3: protos.Void
 }
 var file_projects_proto_depIdxs = []int32{
-	2, // 0: protos.Project.user_id:type_name -> protos.Users
-	0, // 1: protos.GetAllProjects.projects:type_name -> protos.Project
-	0, // 2: protos.ProjectService.CreateProject:input_type -> protos.Project
-	3, // 3: protos.ProjectService.DeleteProject:input_type -> protos.ById
-	0, // 4: protos.ProjectService.UpdateProject:input_type -> protos.Project
-	3, // 5: protos.ProjectService.GetByIdProject:input_type -> protos.ById
-	0, // 6: protos.ProjectService.GetAllProject:input_type -> protos.Project
-	4, // 7: protos.ProjectService.CreateProject:output_type -> protos.Void
-	4, // 8: protos.ProjectService.DeleteProject:output_type -> protos.Void
-	4, // 9: protos.ProjectService.UpdateProject:output_type -> protos.Void
-	0, // 10: protos.ProjectService.GetByIdProject:output_type -> protos.Project
-	1, // 11: protos.ProjectService.GetAllProject:output_type -> protos.GetAllProjects
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	0, // 0: protos.GetAllProjects.projects:type_name -> protos.Project
+	0, // 1: protos.ProjectService.CreateProject:input_type -> protos.Project
+	2, // 2: protos.ProjectService.DeleteProject:input_type -> protos.ById
+	0, // 3: protos.ProjectService.UpdateProject:input_type -> protos.Project
+	2, // 4: protos.ProjectService.GetByIdProject:input_type -> protos.ById
+	0, // 5: protos.ProjectService.GetAllProject:input_type -> protos.Project
+	3, // 6: protos.ProjectService.CreateProject:output_type -> protos.Void
+	3, // 7: protos.ProjectService.DeleteProject:output_type -> protos.Void
+	3, // 8: protos.ProjectService.UpdateProject:output_type -> protos.Void
+	0, // 9: protos.ProjectService.GetByIdProject:output_type -> protos.Project
+	1, // 10: protos.ProjectService.GetAllProject:output_type -> protos.GetAllProjects
+	6, // [6:11] is the sub-list for method output_type
+	1, // [1:6] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_projects_proto_init() }

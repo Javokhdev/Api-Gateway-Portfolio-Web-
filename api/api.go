@@ -25,6 +25,7 @@ func NewGin(h *handler.Handler) *gin.Engine {
 	u.DELETE("/delete/:id", h.DeleteSkill)
 	u.GET("/getall", h.GetAllSkill)
 	u.GET("/getbyid/:id", h.GetByIdSkill)
+	u.GET("/byuser/:user_id", h.GetByUserIdSkill)
 
 
 
@@ -34,6 +35,8 @@ func NewGin(h *handler.Handler) *gin.Engine {
 	p.DELETE("/delete/:id", h.DeleteProject)
 	p.GET("/getall", h.GetAllProject)
 	p.GET("/getbyid/:id", h.GetByIdProject)
+	p.GET("/byuser", h.GetByUserIdProject)
+	p.GET("/search", h.SearchProjects)
 
 
 
@@ -43,6 +46,7 @@ func NewGin(h *handler.Handler) *gin.Engine {
 	e.DELETE("/delete/:id", h.DeleteEducation)
 	e.GET("/getall", h.GetAllEducation)
 	e.GET("/getbyid/:id", h.GetByIdEducation)
+	e.GET("/byuser/:user_id", h.GetByUserIdEducation)
 
 
 
@@ -52,9 +56,8 @@ func NewGin(h *handler.Handler) *gin.Engine {
 	v.DELETE("/delete/:id", h.DeleteExperience)
 	v.GET("/getall", h.GetAllExperience)
 	v.GET("/getbyid/:id", h.GetByIdExperience)
+	v.GET("/byuser/:user_id", h.GetByUserIdExperience)
 
-
-	r.GET("/getskillbyuser/:id", h.GetSkillByUser)
 
 
 	return r

@@ -1,6 +1,10 @@
 package handler
 
 import (
+	"fmt"
+	"net/http"
+	"time"
+
 	pb "github.com/Javokhdev/Portfolio-Api-Gateway/genprotos"
 
 	"github.com/gin-gonic/gin"
@@ -17,16 +21,33 @@ import (
 // @Failure 		401   {string}  string  	"Error while Created"
 // @Router 			/education/create [post]
 func (h *Handler) CreateEducation(ctx *gin.Context) {
-	arr := pb.Education{}
-	err := ctx.BindJSON(&arr)
-	if err != nil {
-		panic(err)
+	education := pb.Education{}
+	if err := ctx.BindJSON(&education); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
-	_, err = h.Education.CreateEducation(ctx, &arr)
+
+	startDate, err := time.Parse("2006-01-02", education.StartDate)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Invalid start date: %s", err.Error())})
+		return
 	}
-	ctx.JSON(200, "Success!!!")
+
+	endDate, err := time.Parse("2006-01-02", education.EndDate)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("Invalid end date: %s", err.Error())})
+		return
+	}
+
+	education.StartDate = startDate.Format("2006-01-02")
+	education.EndDate = endDate.Format("2006-01-02")
+
+	_, err = h.Education.CreateEducation(ctx, &education)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{"message": "Success"})
 }
 
 // UpdateEducation 	handles the creation of a new Education
@@ -42,6 +63,8 @@ func (h *Handler) CreateEducation(ctx *gin.Context) {
 // @Router 			/education/update/{id} [put]
 func (h *Handler) UpdateEducation(ctx *gin.Context) {
 	arr := pb.Education{}
+	id := ctx.Param("id")
+	arr.Id = id
 	err := ctx.BindJSON(&arr)
 	if err != nil {
 		panic(err)
@@ -111,4 +134,47 @@ func (h *Handler) GetByIdEducation(ctx *gin.Context) {
 		panic(err)
 	}
 	ctx.JSON(200, res)
+}
+
+
+// GetByUserIdEducation handles retrieving Educations by User ID
+// @Summary 		Get Education by User ID
+// @Description 	Retrieve educatioin by user ID
+// @Tags 			Education
+// @Accept  		json
+// @Produce  		json
+// @Param     		user_id    path    string  true  "User ID"
+// @Success 		200 {array}  pb.Education  "Get Education by User ID Successful"
+// @Failure 		400 {string}  string 		"User ID is required"
+// @Failure 		404 {string}  string 		"Educations not found"
+// @Failure 		500 {string}  string 		"Error while retrieving educations"
+// @Router 			/education/byuser/{user_id} [get]
+func (h *Handler) GetByUserIdEducation(ctx *gin.Context) {
+	user_id := ctx.Param("user_id")
+	if user_id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User ID is required"})
+		return
+	}
+
+	education := &pb.Education{}
+	res, err := h.Education.GetAllEducation(ctx, education)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error while retrieving educations"})
+		return
+	}
+
+	// Filter education by user_id
+	var userEducations []*pb.Education
+	for _, exp := range res.Educations {
+		if exp.UserId == user_id {
+			userEducations = append(userEducations, exp)
+		}
+	}
+
+	if len(userEducations) == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "Educations not found"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, pb.GetAllEducations{Educations: userEducations})
 }

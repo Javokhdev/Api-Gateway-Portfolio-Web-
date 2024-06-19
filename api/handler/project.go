@@ -1,13 +1,16 @@
 package handler
 
 import (
+	"net/http"
+	"strings"
+
 	pb "github.com/Javokhdev/Portfolio-Api-Gateway/genprotos"
 
 	"github.com/gin-gonic/gin"
 )
 
-// Create 			Project handles the creation of a new Porfolio
-// @Summary 		Create Porfolio
+// Create 			Project handles the creation of a new Project
+// @Summary 		Create Project
 // @Description 	Create page
 // @Tags 			Project
 // @Accept  		json
@@ -42,6 +45,8 @@ func (h *Handler) CreateProject(ctx *gin.Context) {
 // @Router 			/project/update/{id} [put]
 func (h *Handler) UpdateProject(ctx *gin.Context) {
 	arr := pb.Project{}
+	id := ctx.Param("id")
+	arr.Id = id
 	err := ctx.BindJSON(&arr)
 	if err != nil {
 		panic(err)
@@ -103,7 +108,7 @@ func (h *Handler) GetAllProject(ctx *gin.Context) {
 // @Param     		id    path    string  true  "Project ID"
 // @Success 		200 {object}  pb.Project   "GetById Successful"
 // @Failure 		401 {string}  string 		"Error while GetByIdd"
-// @Router 			/Project/getbyid/{id} [get]
+// @Router 			/project/getbyid/{id} [get]
 func (h *Handler) GetByIdProject(ctx *gin.Context) {
 	id := pb.ById{Id: ctx.Param("id")}
 	res, err := h.Project.GetByIdProject(ctx, &id)
@@ -111,4 +116,86 @@ func (h *Handler) GetByIdProject(ctx *gin.Context) {
 		panic(err)
 	}
 	ctx.JSON(200, res)
+}
+
+// GetByUserIdProject handles retrieving Projects by User ID
+// @Summary 		Get Projects by User ID
+// @Description 	Retrieve projects by user ID
+// @Tags 			Project
+// @Accept  		json
+// @Produce  		json
+// @Param     		user_id    query   string  true  "User ID"
+// @Success 		200 {object}  pb.GetAllProjects  	"Get Projects by User ID Successful"
+// @Failure 		400 {string}  string 		"User ID is required"
+// @Failure 		404 {string}  string 		"User not found"
+// @Failure 		500 {string}  string 		"Error while retrieving projects"
+// @Router 			/project/byuser [get]
+func (h *Handler) GetByUserIdProject(ctx *gin.Context) {
+	user_id := ctx.Query("user_id")
+	if user_id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User ID is required"})
+		return
+	}
+
+	Project := &pb.Project{}
+	res, err := h.Project.GetAllProject(ctx, Project)
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error while retrieving projects"})
+		return
+	}
+
+	// Filter projects by user_id
+	var userProjects []*pb.Project
+	for _, project := range res.Projects {
+		if project.UserId == user_id {
+			userProjects = append(userProjects, project)
+		}
+	}
+
+	if len(userProjects) == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, pb.GetAllProjects{Projects: userProjects})
+}
+
+// SearchProjects handles searching projects by name or description
+// @Summary      Search Projects
+// @Description  Search projects by name or description
+// @Tags         Project
+// @Accept       json
+// @Produce      json
+// @Param        query   query    string  true  "Search Query"
+// @Success      200     {object} pb.GetAllProjects   "Search Successful"
+// @Failure      400     {string} string              "Search query is required"
+// @Failure      500     {string} string              "Error while searching projects"
+// @Router       /project/search [get]
+func (h *Handler) SearchProjects(ctx *gin.Context) {
+	query := ctx.Query("query")
+	if query == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Search query is required"})
+		return
+	}
+
+	// Call GetAllProject to get all projects
+	allProjects, err := h.Project.GetAllProject(ctx, &pb.Project{})
+	if err != nil {
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error while retrieving projects"})
+		return
+	}
+
+	// Filter projects based on the search query
+	var filteredProjects []*pb.Project
+	for _, project := range allProjects.Projects {
+		if strings.Contains(strings.ToLower(project.Title), strings.ToLower(query)) ||
+			strings.Contains(strings.ToLower(project.Description), strings.ToLower(query)) {
+			filteredProjects = append(filteredProjects, project)
+		}
+	}
+
+	// Prepare the response
+	response := &pb.GetAllProjects{Projects: filteredProjects}
+
+	ctx.JSON(http.StatusOK, response)
 }

@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   genprotos.Education:
     properties:
@@ -35,7 +36,7 @@ definitions:
     type: object
   genprotos.GetAllEducations:
     properties:
-      restorans:
+      educations:
         items:
           $ref: '#/definitions/genprotos.Education'
         type: array
@@ -56,7 +57,7 @@ definitions:
     type: object
   genprotos.GetAllSkills:
     properties:
-      restorans:
+      skills:
         items:
           $ref: '#/definitions/genprotos.Skill'
         type: array
@@ -85,34 +86,47 @@ definitions:
       user_id:
         type: string
     type: object
+host: localhost:8080
 info:
   contact: {}
+  description: Portfolio
+  version: "1.0"
 paths:
-  /Project/getbyid/{id}:
+  /education/byuser/{user_id}:
     get:
       consumes:
       - application/json
-      description: GetById page
+      description: Retrieve educatioin by user ID
       parameters:
-      - description: Project ID
+      - description: User ID
         in: path
-        name: id
+        name: user_id
         required: true
         type: string
       produces:
       - application/json
       responses:
         "200":
-          description: GetById Successful
+          description: Get Education by User ID Successful
           schema:
-            $ref: '#/definitions/genprotos.Project'
-        "401":
-          description: Error while GetByIdd
+            items:
+              $ref: '#/definitions/genprotos.Education'
+            type: array
+        "400":
+          description: User ID is required
           schema:
             type: string
-      summary: GetById Project
+        "404":
+          description: Educations not found
+          schema:
+            type: string
+        "500":
+          description: Error while retrieving educations
+          schema:
+            type: string
+      summary: Get Education by User ID
       tags:
-      - Project
+      - Education
   /education/create:
     post:
       consumes:
@@ -261,6 +275,41 @@ paths:
       summary: Update Education
       tags:
       - Education
+  /experience/byuser/{user_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve experience by user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get Experience by User ID Successful
+          schema:
+            items:
+              $ref: '#/definitions/genprotos.Experience'
+            type: array
+        "400":
+          description: User ID is required
+          schema:
+            type: string
+        "404":
+          description: Experiences not found
+          schema:
+            type: string
+        "500":
+          description: Error while retrieving experiences
+          schema:
+            type: string
+      summary: Get Experience by User ID
+      tags:
+      - Experience
   /experience/create:
     post:
       consumes:
@@ -284,7 +333,7 @@ paths:
           description: Error while Created
           schema:
             type: string
-      summary: Create Porfolio
+      summary: Create Experience
       tags:
       - Experience
   /experience/delete/{id}:
@@ -409,6 +458,39 @@ paths:
       summary: Update Experience
       tags:
       - Experience
+  /project/byuser:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve projects by user ID
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get Projects by User ID Successful
+          schema:
+            $ref: '#/definitions/genprotos.GetAllProjects'
+        "400":
+          description: User ID is required
+          schema:
+            type: string
+        "404":
+          description: User not found
+          schema:
+            type: string
+        "500":
+          description: Error while retrieving projects
+          schema:
+            type: string
+      summary: Get Projects by User ID
+      tags:
+      - Project
   /project/create:
     post:
       consumes:
@@ -432,7 +514,7 @@ paths:
           description: Error while Created
           schema:
             type: string
-      summary: Create Porfolio
+      summary: Create Project
       tags:
       - Project
   /project/delete/{id}:
@@ -495,6 +577,60 @@ paths:
       summary: GetAll Project
       tags:
       - Project
+  /project/getbyid/{id}:
+    get:
+      consumes:
+      - application/json
+      description: GetById page
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: GetById Successful
+          schema:
+            $ref: '#/definitions/genprotos.Project'
+        "401":
+          description: Error while GetByIdd
+          schema:
+            type: string
+      summary: GetById Project
+      tags:
+      - Project
+  /project/search:
+    get:
+      consumes:
+      - application/json
+      description: Search projects by name or description
+      parameters:
+      - description: Search Query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Search Successful
+          schema:
+            $ref: '#/definitions/genprotos.GetAllProjects'
+        "400":
+          description: Search query is required
+          schema:
+            type: string
+        "500":
+          description: Error while searching projects
+          schema:
+            type: string
+      summary: Search Projects
+      tags:
+      - Project
   /project/update/{id}:
     put:
       consumes:
@@ -526,6 +662,39 @@ paths:
       summary: Update Project
       tags:
       - Project
+  /skill/byuser/{user_id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve skills by user ID
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Get Skills by User ID Successful
+          schema:
+            $ref: '#/definitions/genprotos.GetAllSkills'
+        "400":
+          description: User ID is required
+          schema:
+            type: string
+        "404":
+          description: Skills not found
+          schema:
+            type: string
+        "500":
+          description: Error while retrieving skills
+          schema:
+            type: string
+      summary: Get Skills by User ID
+      tags:
+      - Skill
   /skill/create:
     post:
       consumes:

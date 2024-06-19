@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"net/http"
+
 	pb "github.com/Javokhdev/Portfolio-Api-Gateway/genprotos"
 
 	"github.com/gin-gonic/gin"
@@ -41,16 +43,16 @@ func (h *Handler) CreateSkill(ctx *gin.Context) {
 // @Failure 		401   {string}  string      "Error while created"
 // @Router 			/skill/update/{id} [put]
 func (h *Handler) UpdateSkill(ctx *gin.Context) {
-	arr := pb.Skill{Id : ctx.Param("id")}
-	err := ctx.BindJSON(&arr)
+	skill := pb.Skill{}
+	if err := ctx.BindJSON(&skill); err != nil {
+		panic(err)
+	}
+	skill.Id = ctx.Param("id")
+	_, err := h.Skill.UpdateSkill(ctx, &skill)
 	if err != nil {
 		panic(err)
 	}
-	_, err = h.Skill.UpdateSkill(ctx, &arr)
-	if err != nil {
-		panic(err)
-	}
-	ctx.JSON(200, "Success!!!")
+	ctx.JSON(http.StatusOK, "Success!!!")
 }
 
 // DeleteSkill 	handles the creation of a new Skill
@@ -113,17 +115,45 @@ func (h *Handler) GetByIdSkill(ctx *gin.Context) {
 	ctx.JSON(200, res)
 }
 
-func (h *Handler) GetSkillByUser(ctx *gin.Context) {
-	id := pb.ById{Id: ctx.Param("id")}
-	res, err := h.Skill.GetByIdSkill(ctx, &id)
-	if err != nil {
-		panic(err)
+// GetByUserIdSkill handles retrieving Skills by User ID
+// @Summary 		Get Skills by User ID
+// @Description 	Retrieve skills by user ID
+// @Tags 			Skill
+// @Accept  		json
+// @Produce  		json
+// @Param     		user_id    path    string  true  "User ID"
+// @Success 		200 {object}  pb.GetAllSkills   "Get Skills by User ID Successful"
+// @Failure 		400 {string}  string 			"User ID is required"
+// @Failure 		404 {string}  string 			"Skills not found"
+// @Failure 		500 {string}  string 			"Error while retrieving skills"
+// @Router 			/skill/byuser/{user_id} [get]
+func (h *Handler) GetByUserIdSkill(ctx *gin.Context) {
+	user_id := ctx.Param("user_id")
+	if user_id == "" {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "User ID is required"})
+		return
 	}
-	user, err:=h.Users.GetByIdUser(ctx, &pb.ById{Id: res.UserId.Id})
+
+	skill := &pb.Skill{}
+	res, err := h.Skill.GetAllSkill(ctx, skill)
 	if err != nil {
-		panic(err)
+		ctx.JSON(http.StatusInternalServerError, gin.H{"error": "Error while retrieving skills"})
+		return
 	}
-	res.UserId=user
-	ctx.JSON(200, res)
+
+	// Filter skills by user_id
+	var userSkills []*pb.Skill
+	for _, skill := range res.Skills {
+		if skill.UserId == user_id {
+			userSkills = append(userSkills, skill)
+		}
+	}
+
+	if len(userSkills) == 0 {
+		ctx.JSON(http.StatusNotFound, gin.H{"error": "Skills not found"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, pb.GetAllSkills{Skills: userSkills})
 }
 

@@ -19,16 +19,11 @@ func main() {
 	}
 	defer UserConn.Close()
 
-	UpaymentConn, err := grpc.NewClient(fmt.Sprintf("localhost%s", ":8086"), grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		log.Fatal("Error while NEwclient: ", err.Error())
-	}
-	defer UpaymentConn.Close()
 	skill := pb.NewSkillServiceClient(UserConn)
 	pro := pb.NewProjectServiceClient(UserConn)
 	edu := pb.NewEducationServiceClient(UserConn)
 	exp := pb.NewExperienceServiceClient(UserConn)
-	us := pb.NewUserServiceClient(UpaymentConn)
+	us := pb.NewUserServiceClient(UserConn)
 
 
 	h := handler.NewHandler(skill, pro, edu, exp, us)

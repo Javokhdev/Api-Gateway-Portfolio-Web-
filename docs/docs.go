@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/Project/getbyid/{id}": {
+        "/education/byuser/{user_id}": {
             "get": {
-                "description": "GetById page",
+                "description": "Retrieve educatioin by user ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,27 +25,42 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Project"
+                    "Education"
                 ],
-                "summary": "GetById Project",
+                "summary": "Get Education by User ID",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Project ID",
-                        "name": "id",
+                        "description": "User ID",
+                        "name": "user_id",
                         "in": "path",
                         "required": true
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "GetById Successful",
+                        "description": "Get Education by User ID Successful",
                         "schema": {
-                            "$ref": "#/definitions/genprotos.Project"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/genprotos.Education"
+                            }
                         }
                     },
-                    "401": {
-                        "description": "Error while GetByIdd",
+                    "400": {
+                        "description": "User ID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Educations not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error while retrieving educations",
                         "schema": {
                             "type": "string"
                         }
@@ -282,6 +297,59 @@ const docTemplate = `{
                 }
             }
         },
+        "/experience/byuser/{user_id}": {
+            "get": {
+                "description": "Retrieve experience by user ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Experience"
+                ],
+                "summary": "Get Experience by User ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Experience by User ID Successful",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/genprotos.Experience"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "User ID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Experiences not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error while retrieving experiences",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/experience/create": {
             "post": {
                 "description": "Create page",
@@ -294,7 +362,7 @@ const docTemplate = `{
                 "tags": [
                     "Experience"
                 ],
-                "summary": "Create Porfolio",
+                "summary": "Create Experience",
                 "parameters": [
                     {
                         "description": "Create",
@@ -511,6 +579,56 @@ const docTemplate = `{
                 }
             }
         },
+        "/project/byuser": {
+            "get": {
+                "description": "Retrieve projects by user ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Get Projects by User ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Projects by User ID Successful",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllProjects"
+                        }
+                    },
+                    "400": {
+                        "description": "User ID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error while retrieving projects",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/project/create": {
             "post": {
                 "description": "Create page",
@@ -523,7 +641,7 @@ const docTemplate = `{
                 "tags": [
                     "Project"
                 ],
-                "summary": "Create Porfolio",
+                "summary": "Create Project",
                 "parameters": [
                     {
                         "description": "Create",
@@ -645,6 +763,88 @@ const docTemplate = `{
                 }
             }
         },
+        "/project/getbyid/{id}": {
+            "get": {
+                "description": "GetById page",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "GetById Project",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Project ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetById Successful",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.Project"
+                        }
+                    },
+                    "401": {
+                        "description": "Error while GetByIdd",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/project/search": {
+            "get": {
+                "description": "Search projects by name or description",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "Search Projects",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search Query",
+                        "name": "query",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search Successful",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllProjects"
+                        }
+                    },
+                    "400": {
+                        "description": "Search query is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error while searching projects",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/project/update/{id}": {
             "put": {
                 "description": "Update page",
@@ -685,6 +885,56 @@ const docTemplate = `{
                     },
                     "401": {
                         "description": "Error while created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/skill/byuser/{user_id}": {
+            "get": {
+                "description": "Retrieve skills by user ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Skill"
+                ],
+                "summary": "Get Skills by User ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Skills by User ID Successful",
+                        "schema": {
+                            "$ref": "#/definitions/genprotos.GetAllSkills"
+                        }
+                    },
+                    "400": {
+                        "description": "User ID is required",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Skills not found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Error while retrieving skills",
                         "schema": {
                             "type": "string"
                         }
@@ -963,7 +1213,7 @@ const docTemplate = `{
         "genprotos.GetAllEducations": {
             "type": "object",
             "properties": {
-                "restorans": {
+                "educations": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/genprotos.Education"
@@ -996,7 +1246,7 @@ const docTemplate = `{
         "genprotos.GetAllSkills": {
             "type": "object",
             "properties": {
-                "restorans": {
+                "skills": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/genprotos.Skill"
@@ -1046,12 +1296,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "",
-	Description:      "",
+	Description:      "Portfolio",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
