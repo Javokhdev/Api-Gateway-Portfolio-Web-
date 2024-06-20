@@ -58,7 +58,6 @@ PostgresDatabase = web_portfolio
 ### Run the service:
 
 ```
-go run server/server.go
 go run main.go
 ```
 
